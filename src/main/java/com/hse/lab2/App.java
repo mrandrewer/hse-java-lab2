@@ -333,6 +333,35 @@ public class App {
         }
     }
 
+    private static void addRowToJaggedArray(Scanner scanner) {
+        if (jaggedArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        Random random = new Random();
+        int newRowPos = readInt(scanner,
+                "Введите позицию для добавления новой строки (0 - " + (jaggedArray.length) + "): ");
+        int newRowCols = readInt(scanner, "Введите количество столбцов для новой строки: ");
+        int[] newRow = new int[newRowCols];
+        for (int j = 0; j < newRowCols; j++) {
+            // Заполнение случайными числами от -100 до 100
+            newRow[j] = random.nextInt(201) - 100;
+        }
+        int[][] newArray = new int[jaggedArray.length + 1][];
+        int destPos = 0;
+        for (int i = 0; i < jaggedArray.length; i++) {
+            if (i == newRowPos) {
+                newArray[destPos++] = newRow;
+            }
+            newArray[destPos++] = jaggedArray[i];
+        }
+        if (newRowPos == jaggedArray.length) {
+            newArray[destPos] = newRow;
+        }
+        jaggedArray = newArray;
+        printJaggedArray();
+    }
+
     /**
      * Вывод меню работы с одномерным массивом
      */
@@ -457,6 +486,9 @@ public class App {
                         break;
                     case 5:
                         printJaggedArray();
+                        break;
+                    case 6:
+                        addRowToJaggedArray(scanner);
                         break;
                     case 0:
                         System.out.println("Возврат в главное меню...");
