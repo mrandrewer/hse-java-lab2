@@ -132,6 +132,26 @@ public class App {
     }
 
     /**
+     * Перестановка четных элементов с нечетными
+     */
+    private static void swapODArraayElements() {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        System.out.println("Перестановка четных элементов с нечетными");
+        for (int i = 0; i < oneDimensionalArray.length; i += 2) {
+            int j = i + 1;
+            if (j < oneDimensionalArray.length) {
+                int temp = oneDimensionalArray[i];
+                oneDimensionalArray[i] = oneDimensionalArray[j];
+                oneDimensionalArray[j] = temp;
+            }
+        }
+        printODArray();
+    }
+
+    /**
      * Вывод главного меню
      */
     public static void printMenu() {
@@ -143,6 +163,7 @@ public class App {
         System.out.println("3 - Вывод массива");
         System.out.println("4 - Удаление элементов, больших среднего значения");
         System.out.println("5 - Расширение массива");
+        System.out.println("6 - Перестановка четных элементов с нечетными");
         System.out.print("Введите номер пункта > ");
     }
 
@@ -177,6 +198,9 @@ public class App {
                         break;
                     case 5:
                         expandODArray(scanner);
+                        break;
+                    case 6:
+                        swapODArraayElements();
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
