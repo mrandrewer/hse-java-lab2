@@ -48,8 +48,8 @@ public class App {
         int size = readInt(scanner, "Введите размер одномерного массива: ");
         oneDimensionalArray = new int[size];
         for (int i = 0; i < size; i++) {
-            // Заполнение случайными числами от 0 до 99
-            oneDimensionalArray[i] = random.nextInt(100);
+            // Заполнение случайными числами от -100 до 100
+            oneDimensionalArray[i] = random.nextInt(201) - 100;
         }
         printODArray();
     }
@@ -152,6 +152,24 @@ public class App {
     }
 
     /**
+     * Поиск первого отрицательного элемента в массиве
+     */
+    private static void findODArrayNegativeElement() {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        System.out.println("Поиск первого отрицательного элемента");
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            if (oneDimensionalArray[i] < 0) {
+                System.out.println("Первый отрицательный элемент[" + i + "]: " + oneDimensionalArray[i]);
+                return;
+            }
+        }
+        System.out.println("Отрицательных элементов не найдено.");
+    }
+
+    /**
      * Вывод главного меню
      */
     public static void printMenu() {
@@ -164,6 +182,7 @@ public class App {
         System.out.println("4 - Удаление элементов, больших среднего значения");
         System.out.println("5 - Расширение массива");
         System.out.println("6 - Перестановка четных элементов с нечетными");
+        System.out.println("7 - Поиск первого отрицательного элемента");
         System.out.print("Введите номер пункта > ");
     }
 
@@ -201,6 +220,9 @@ public class App {
                         break;
                     case 6:
                         swapODArraayElements();
+                        break;
+                    case 7:
+                        findODArrayNegativeElement();
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
