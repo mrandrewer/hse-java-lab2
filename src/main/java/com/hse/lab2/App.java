@@ -84,6 +84,33 @@ public class App {
     }
 
     /**
+     * Удаление элементов, больших среднего значения
+     */
+    private static void removeGreaterThanAverage() {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        double sum = 0;
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            sum += oneDimensionalArray[i];
+        }
+        double average = sum / oneDimensionalArray.length;
+        System.out.println("Удаление элементов больше среднего значения: " + average);
+        int[] newArray = new int[oneDimensionalArray.length];
+        int newIndex = 0;
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            if (oneDimensionalArray[i] <= average) {
+                newArray[newIndex++] = oneDimensionalArray[i];
+            }
+        }
+        oneDimensionalArray = new int[newIndex];
+        // Переносим элементы из нового массива обратно в исходный массив
+        System.arraycopy(newArray, 0, oneDimensionalArray, 0, newIndex);
+        printODArray();
+    }
+
+    /**
      * Вывод главного меню
      */
     public static void printMenu() {
@@ -93,6 +120,7 @@ public class App {
         System.out.println("1 - Заполнение одномерного массива случайным набором");
         System.out.println("2 - Заполнение одномерного массива с клавиатуры");
         System.out.println("3 - Вывод одномерного массива");
+        System.out.println("4 - Удаление элементов, больших среднего значения");
         System.out.print("Введите номер пункта > ");
     }
 
@@ -121,6 +149,9 @@ public class App {
                         break;
                     case 3:
                         printODArray();
+                        break;
+                    case 4:
+                        removeGreaterThanAverage();
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
