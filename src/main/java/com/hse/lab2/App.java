@@ -1,14 +1,12 @@
 package com.hse.lab2;
 
-import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Вариант 18
 public class App {
 
-    static final String intInputError = "Некорректный ввод. Пожалуйста введите корректное число (например, 1, 2, 123).";
-    static final String doubleInputError = "Некорректный ввод. Пожалуйста введите корректное число (например, 3.14, -5.2, 100).";
+    static final String intInputError = "Некорректный ввод. Пожалуйста введите целое число (например, 1, -2, 123).";
 
     /**
      * Ввод числа с плавающей точкой пользователем
@@ -27,31 +25,7 @@ public class App {
                 result = scanner.nextInt();
                 validInput = true;
             } catch (InputMismatchException e) {
-                System.out.println(doubleInputError);
-            }
-            scanner.nextLine();
-        } while (!validInput);
-        return result;
-    }
-
-    /**
-     * Ввод числа с плавающей точкой пользователем
-     * Тип значения double
-     * 
-     * @param scanner Сканер для получения данных ввода
-     * @param message Приглашение для ввода чисола
-     * @return Введенное число
-     */
-    static double readDouble(Scanner scanner, String message) {
-        double result = 0;
-        boolean validInput = false;
-        do {
-            System.out.print(message);
-            try {
-                result = scanner.nextDouble();
-                validInput = true;
-            } catch (InputMismatchException e) {
-                System.out.println(doubleInputError);
+                System.out.println(intInputError);
             }
             scanner.nextLine();
         } while (!validInput);
