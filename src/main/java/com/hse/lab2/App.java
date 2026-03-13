@@ -111,16 +111,38 @@ public class App {
     }
 
     /**
+     * Расширение одномерного массива
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void expandODArray(Scanner scanner) {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        int k = readInt(scanner, "Введите количество добавляемых элеметов: ");
+        int[] newArray = new int[oneDimensionalArray.length + k];
+        System.arraycopy(oneDimensionalArray, 0, newArray, 0, oneDimensionalArray.length);
+        for (int i = 0; i < k; i++) {
+            newArray[oneDimensionalArray.length + i] = readInt(scanner,
+                    "Введите элемент " + (oneDimensionalArray.length + i + 1) + ": ");
+        }
+        oneDimensionalArray = newArray;
+        printODArray();
+    }
+
+    /**
      * Вывод главного меню
      */
     public static void printMenu() {
         System.out.println();
         System.out.println("Выберите задачу:");
         System.out.println("0 - Выход");
-        System.out.println("1 - Заполнение одномерного массива случайным набором");
-        System.out.println("2 - Заполнение одномерного массива с клавиатуры");
-        System.out.println("3 - Вывод одномерного массива");
+        System.out.println("1 - Заполнение массива случайным набором");
+        System.out.println("2 - Заполнение массива с клавиатуры");
+        System.out.println("3 - Вывод массива");
         System.out.println("4 - Удаление элементов, больших среднего значения");
+        System.out.println("5 - Расширение массива");
         System.out.print("Введите номер пункта > ");
     }
 
@@ -152,6 +174,9 @@ public class App {
                         break;
                     case 4:
                         removeGreaterThanAverage();
+                        break;
+                    case 5:
+                        expandODArray(scanner);
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
