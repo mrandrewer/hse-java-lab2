@@ -172,6 +172,52 @@ public class App {
     }
 
     /**
+     * Сортировка массива
+     */
+    private static void sortODArray() {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        System.out.println("Сортировка массива");
+        java.util.Arrays.sort(oneDimensionalArray);
+        printODArray();
+    }
+
+    /**
+     * Бинарный поиск элемента в массиве
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void binarySearchODArray(Scanner scanner) {
+        if (oneDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        sortODArray();
+        int target = readInt(scanner, "Введите число для поиска: ");
+        int left = 0;
+        int right = oneDimensionalArray.length - 1;
+        int comparisons = 0;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int comparison = Integer.compare(oneDimensionalArray[mid], target);
+            comparisons++;
+            if (comparison == 0) {
+                System.out.println("Элемент найден на позиции: " + mid);
+                System.out.println("Количество сравнений: " + comparisons);
+                return;
+            } else if (comparison < 0) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        System.out.println("Элемент не найден в массиве.");
+        System.out.println("Количество сравнений: " + comparisons);
+    }
+
+    /**
      * Вывод главного меню
      */
     public static void printMenu() {
@@ -185,6 +231,7 @@ public class App {
         System.out.println("5 - Расширение массива");
         System.out.println("6 - Перестановка четных элементов с нечетными");
         System.out.println("7 - Поиск первого отрицательного элемента");
+        System.out.println("8 - Бинарный поиск в массиве");
         System.out.print("Введите номер пункта > ");
     }
 
@@ -225,6 +272,9 @@ public class App {
                         break;
                     case 7:
                         findODArrayNegativeElement();
+                        break;
+                    case 8:
+                        binarySearchODArray(scanner);
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
