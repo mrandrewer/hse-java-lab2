@@ -228,6 +228,74 @@ public class App {
     }
 
     /**
+     * Заполнение двумерного массива случайным набором
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void fillRandomTDArray(Scanner scanner) {
+        Random random = new Random();
+        int rows = readInt(scanner, "Введите количество строк двумерного массива: ");
+        int cols = readInt(scanner, "Введите количество столбцов двумерного массива: ");
+        twoDimensionalArray = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                // Заполнение случайными числами от -100 до 100
+                twoDimensionalArray[i][j] = random.nextInt(201) - 100;
+            }
+        }
+        printTDArray();
+    }
+
+    /**
+     * Вывод двумерного массива
+     */
+    private static void printTDArray() {
+        System.out.println("Содержимое двумерного массива: ");
+        if (twoDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        for (int i = 0; i < twoDimensionalArray.length; i++) {
+            for (int j = 0; j < twoDimensionalArray[i].length; j++) {
+                System.out.print(twoDimensionalArray[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static void removeZeroColumns() {
+        if (twoDimensionalArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        System.out.println("Удаление столбцов с нулевыми элементами");
+        int rows = twoDimensionalArray.length;
+        int cols = twoDimensionalArray[0].length;
+        int removedCols = 0;
+        boolean[] zeroColumns = new boolean[cols];
+        for (int j = 0; j < cols; j++) {
+            for (int i = 0; i < rows; i++) {
+                if (twoDimensionalArray[i][j] == 0) {
+                    zeroColumns[j] = true;
+                    removedCols++;
+                    break;
+                }
+            }
+        }
+        int[][] newArray = new int[rows][cols - removedCols];
+        for (int i = 0, newColIndex = 0; i < cols; i++) {
+            if (!zeroColumns[i]) {
+                for (int j = 0; j < rows; j++) {
+                    newArray[j][newColIndex] = twoDimensionalArray[j][i];
+                }
+                newColIndex++;
+            }
+        }
+        twoDimensionalArray = newArray;
+        printTDArray();
+    }
+
+    /**
      * Вывод меню работы с одномерным массивом
      */
     private static void printODMenu() {
@@ -337,6 +405,15 @@ public class App {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 switch (choice) {
+                    case 1:
+                        fillRandomTDArray(scanner);
+                        break;
+                    case 2:
+                        printTDArray();
+                        break;
+                    case 3:
+                        removeZeroColumns();
+                        break;
                     case 0:
                         System.out.println("Возврат в главное меню...");
                         running = false;
