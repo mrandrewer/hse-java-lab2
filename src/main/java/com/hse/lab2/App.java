@@ -296,6 +296,44 @@ public class App {
     }
 
     /**
+     * Заполнение рваного массива случайным набором
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void fillRandomJaggedArray(Scanner scanner) {
+        Random random = new Random();
+        int rows = readInt(scanner, "Введите количество строк рваного массива: ");
+        int cols = readInt(scanner, "Введите максимальное количество столбцов для строки: ");
+        jaggedArray = new int[rows][];
+        for (int i = 0; i < rows; i++) {
+            int curCols = random.nextInt(cols) + 1; // Случайное количество столбцов для текущей строки
+            jaggedArray[i] = new int[curCols];
+            for (int j = 0; j < curCols; j++) {
+                // Заполнение случайными числами от -100 до 100
+                jaggedArray[i][j] = random.nextInt(201) - 100;
+            }
+        }
+        printJaggedArray();
+    }
+
+    /**
+     * Вывод рваного массива
+     */
+    private static void printJaggedArray() {
+        System.out.println("Содержимое рваного массива: ");
+        if (jaggedArray == null) {
+            System.out.println("Массив не заполнен.");
+            return;
+        }
+        for (int i = 0; i < jaggedArray.length; i++) {
+            for (int j = 0; j < jaggedArray[i].length; j++) {
+                System.out.print(jaggedArray[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
      * Вывод меню работы с одномерным массивом
      */
     private static void printODMenu() {
@@ -413,6 +451,12 @@ public class App {
                         break;
                     case 3:
                         removeZeroColumns();
+                        break;
+                    case 4:
+                        fillRandomJaggedArray(scanner);
+                        break;
+                    case 5:
+                        printJaggedArray();
                         break;
                     case 0:
                         System.out.println("Возврат в главное меню...");
