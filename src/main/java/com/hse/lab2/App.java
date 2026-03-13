@@ -7,21 +7,19 @@ import java.util.Random;
 // Вариант 18
 public class App {
 
+    // Строка сообщения об ошибке для некорректного ввода целого числа
     static final String intInputError = "Некорректный ввод. Пожалуйста введите целое число (например, 1, -2, 123).";
 
-    /**
-     * Одномерный массив
-     */
+    // Генератор случайных чисел для заполнения массивов
+    static Random random = new Random();
+
+    // Одномерный массив
     static int[] oneDimensionalArray;
 
-    /**
-     * Двумерный массив
-     */
+    // Двумерный массив
     static int[][] twoDimensionalArray;
 
-    /**
-     * Рваный массив
-     */
+    // Рваный массив
     static int[][] jaggedArray;
 
     /**
@@ -67,17 +65,25 @@ public class App {
     }
 
     /**
+     * Генерация случайного значения от -100 до 100
+     * 
+     * @return Случайное целое число
+     */
+    private static int generateRandomValue() {
+        return random.nextInt(201) - 100;
+    }
+
+    /**
      * Заполнение одномерного массива случайными числами
      * 
      * @param scanner Сканер для получения данных ввода
      */
     private static void fillRandomODArray(Scanner scanner) {
-        Random random = new Random();
         int size = readInt(scanner, "Введите размер одномерного массива: ", 1, Integer.MAX_VALUE);
         oneDimensionalArray = new int[size];
         for (int i = 0; i < size; i++) {
             // Заполнение случайными числами от -100 до 100
-            oneDimensionalArray[i] = random.nextInt(201) - 100;
+            oneDimensionalArray[i] = generateRandomValue();
         }
         printODArray();
     }
@@ -251,7 +257,6 @@ public class App {
      * @param scanner Сканер для получения данных ввода
      */
     private static void fillRandomTDArray(Scanner scanner) {
-        Random random = new Random();
         int rows = readInt(scanner,
                 "Введите количество строк двумерного массива: ",
                 1,
@@ -264,7 +269,7 @@ public class App {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 // Заполнение случайными числами от -100 до 100
-                twoDimensionalArray[i][j] = random.nextInt(201) - 100;
+                twoDimensionalArray[i][j] = generateRandomValue();
             }
         }
         printTDArray();
@@ -325,7 +330,6 @@ public class App {
      * @param scanner Сканер для получения данных ввода
      */
     private static void fillRandomJaggedArray(Scanner scanner) {
-        Random random = new Random();
         int rows = readInt(scanner,
                 "Введите количество строк рваного массива: ",
                 1,
@@ -340,7 +344,7 @@ public class App {
             jaggedArray[i] = new int[curCols];
             for (int j = 0; j < curCols; j++) {
                 // Заполнение случайными числами от -100 до 100
-                jaggedArray[i][j] = random.nextInt(201) - 100;
+                jaggedArray[i][j] = generateRandomValue();
             }
         }
         printJaggedArray();
@@ -368,7 +372,6 @@ public class App {
             System.out.println("Массив не заполнен.");
             return;
         }
-        Random random = new Random();
         int newRowPos = readInt(scanner,
                 "Введите позицию для добавления новой строки (0 - " + (jaggedArray.length) + "): ",
                 0,
@@ -380,7 +383,7 @@ public class App {
         int[] newRow = new int[newRowCols];
         for (int j = 0; j < newRowCols; j++) {
             // Заполнение случайными числами от -100 до 100
-            newRow[j] = random.nextInt(201) - 100;
+            newRow[j] = generateRandomValue();
         }
         int[][] newArray = new int[jaggedArray.length + 1][];
         int destPos = 0;
