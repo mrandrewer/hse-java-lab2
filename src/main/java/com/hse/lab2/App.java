@@ -163,10 +163,12 @@ public class App {
         for (int i = 0; i < oneDimensionalArray.length; i++) {
             if (oneDimensionalArray[i] < 0) {
                 System.out.println("Первый отрицательный элемент[" + i + "]: " + oneDimensionalArray[i]);
+                System.out.println("Количество сравнений: " + (i + 1));
                 return;
             }
         }
         System.out.println("Отрицательных элементов не найдено.");
+        System.out.println("Количество сравнений: " + (oneDimensionalArray.length + 1));
     }
 
     /**
