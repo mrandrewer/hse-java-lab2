@@ -15,6 +15,16 @@ public class App {
     static int[] oneDimensionalArray;
 
     /**
+     * Двумерный массив
+     */
+    static int[][] twoDimensionalArray;
+
+    /**
+     * Рваный массив
+     */
+    static int[][] jaggedArray;
+
+    /**
      * Ввод числа с плавающей точкой пользователем
      * Тип значения int
      * 
@@ -218,9 +228,9 @@ public class App {
     }
 
     /**
-     * Вывод главного меню
+     * Вывод меню работы с одномерным массивом
      */
-    public static void printMenu() {
+    private static void printODMenu() {
         System.out.println();
         System.out.println("Выберите задачу:");
         System.out.println("0 - Выход");
@@ -236,18 +246,42 @@ public class App {
     }
 
     /**
-     * Основной метод программы
-     * 
-     * @param args параметры командной строки
-     * @throws Exception
+     * Вывод меню работы с двумерным массивом
      */
-    public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        boolean running = true;
+    private static void printTDMenu() {
+        System.out.println();
+        System.out.println("Выберите задачу:");
+        System.out.println("0 - Выход");
+        System.out.println("1 - Заполнение двумерного массива случайным набором");
+        System.out.println("2 - Вывод двумерного массива");
+        System.out.println("3 - Удаление столбцов с нулевыми элементами");
+        System.out.println("4 - Заполнение рваного массива случайным набором");
+        System.out.println("5 - Вывод рваного массива");
+        System.out.println("6 - Добавление строки в рваный массив");
+        System.out.print("Введите номер пункта > ");
+    }
 
-        System.out.println("Лабораторная работа 2");
+    /**
+     * Вывод главного меню для выбора типа массива
+     */
+    private static void printMainMenu() {
+        System.out.println();
+        System.out.println("Выберите тип массива:");
+        System.out.println("0 - Выход");
+        System.out.println("1 - Одномерный массив");
+        System.out.println("2 - Двумерный массив");
+        System.out.print("Введите номер пункта > ");
+    }
+
+    /**
+     * Исполнение задач для одномерного массива
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void execODTasks(Scanner scanner) {
+        boolean running = true;
         while (running) {
-            printMenu();
+            printODMenu();
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
@@ -275,6 +309,68 @@ public class App {
                         break;
                     case 8:
                         binarySearchODArray(scanner);
+                        break;
+                    case 0:
+                        System.out.println("Возврат в главное меню...");
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Неверный выбор. Попробуйте снова.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(intInputError);
+                scanner.nextLine(); // Очистка буфера
+            }
+        }
+    }
+
+    /**
+     * Исполнение задач для двумерного массива
+     * 
+     * @param scanner Сканер для получения данных ввода
+     */
+    private static void execTDTasks(Scanner scanner) {
+        boolean running = true;
+        while (running) {
+            printTDMenu();
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        System.out.println("Возврат в главное меню...");
+                        running = false;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(intInputError);
+                scanner.nextLine(); // Очистка буфера
+            }
+        }
+    }
+
+    /**
+     * Основной метод программы
+     * 
+     * @param args параметры командной строки
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        System.out.println("Лабораторная работа 2");
+        while (running) {
+            printMainMenu();
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        execODTasks(scanner);
+                        break;
+                    case 2:
+                        execTDTasks(scanner);
                         break;
                     case 0:
                         System.out.println("Выход из программы...");
