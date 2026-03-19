@@ -299,3 +299,44 @@ endif
 :Конец;
 @enduml
 ```
+
+
+# printJaggedArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало printJaggedArray;
+:Печать "Содержимое рваного массива:"; <<task>>
+if (jaggedArray == null?) then (да)
+  :Печать "Массив не заполнен."; <<task>>
+else (нет)
+  while (i=0; i < jaggedArray.length?; i++) is (да)
+    while (j=0; j < jaggedArray[i].length?; j++) is (да)
+      :Печать jaggedArray[i][j]; <<task>>
+    endwhile (нет)
+    :Печать перевода строки; <<save>>
+  endwhile (нет)
+endif
+:Конец;
+@enduml
+```
+
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало fillRandomJaggedArray;
+:rows = readInt(); <<procedure>>
+:cols = readInt(); <<procedure>>
+:jaggedArray = new int[rows][]; <<task>>
+while (i=0; i < rows?; i++) is (да)
+  :curCols = random.nextInt(cols) + 1; <<task>>
+  :jaggedArray[i] = new int[curCols]; <<task>>
+  while (j < curCols?; j++) is (да)
+    :jaggedArray[i][j] = generateRandomValue(); <<procedure>>
+  endwhile (нет)
+endwhile (нет)
+:Конец;
+@enduml
+```
