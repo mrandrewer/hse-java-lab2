@@ -225,13 +225,15 @@ public class App {
      * Сортировка массива
      */
     private static void sortODArray() {
-        if (oneDimensionalArray == null) {
-            System.out.println("Массив не заполнен.");
-            return;
+        for (int i = 0; i < oneDimensionalArray.length - 1; i++) {
+            for (int j = 0; j < oneDimensionalArray.length - i - 1; j++) {
+                if (oneDimensionalArray[j] > oneDimensionalArray[j + 1]) {
+                    int temp = oneDimensionalArray[j];
+                    oneDimensionalArray[j] = oneDimensionalArray[j + 1];
+                    oneDimensionalArray[j + 1] = temp;
+                }
+            }
         }
-        System.out.println("Сортировка массива");
-        java.util.Arrays.sort(oneDimensionalArray);
-        printODArray();
     }
 
     /**
@@ -245,6 +247,7 @@ public class App {
             return;
         }
         sortODArray();
+        printODArray();
         int target = readInt(scanner, "Введите число для поиска: ");
         int left = 0;
         int right = oneDimensionalArray.length - 1;
@@ -254,7 +257,7 @@ public class App {
             int comparison = Integer.compare(oneDimensionalArray[mid], target);
             comparisons++;
             if (comparison == 0) {
-                System.out.println("Элемент найден на позиции: " + mid);
+                System.out.println("Элемент найден на позиции: " + (mid + 1));
                 System.out.println("Количество сравнений: " + comparisons);
                 return;
             } else if (comparison < 0) {

@@ -158,3 +158,62 @@ endif
 :Конец;
 @enduml
 ```
+
+# sortODArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало sortODArray;
+while (i=0; i<array.length-1?; i++) is (да)
+  while (j=0; j<array.length-i-1?; j++) is (да)
+    if (array[j] > array[j+1]?) then (да)
+      :temp = array[j]; <<task>>
+      :array[j] = array[j+1]; <<task>>
+      :array[j+1] = temp; <<task>>
+    endif
+  endwhile (нет)
+endwhile (нет)
+:Конец;
+@enduml
+```
+
+# binarySearchODArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало binarySearchODArray;
+if (array == null?) then (да)
+  :Печать "Массив не заполнен."; <<save>>
+else (нет)
+  :sortODArray(); <<procedure>>
+  :target = readInt(); <<procedure>>
+  :left = 0; <<task>>
+  :right = array.length - 1; <<task>>
+  :comparisons = 0; <<task>>
+  :index = -1; <<task>>
+  while (left <= right && index < 0?) is (да)
+    :mid = left + (right - left) / 2; <<task>>
+    :comparison = Integer.compare(array[mid], target); <<task>>
+    :comparisons++; <<task>>
+    if (comparison == 0?) then (да)
+      :index = mid; <<task>>
+    else (нет)
+      if (comparison < 0?) then (да)
+        :left = mid + 1; <<task>>
+      else (нет)
+        :right = mid - 1; <<task>>
+      endif 
+    endif
+  endwhile (нет)
+  if (index < 0?) then (да)
+    :Печать "Элемент не найден в массиве."; <<save>>
+  else
+    :Печать "Элемент найден на позиции: " + mid; <<save>>
+  endif
+  :Печать "Количество сравнений: " + comparisons; <<save>>
+endif
+:Конец;
+@enduml
+```
