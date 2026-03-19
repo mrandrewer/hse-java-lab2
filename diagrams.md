@@ -256,3 +256,46 @@ endwhile (нет)
 :Конец;
 @enduml
 ```
+
+
+# removeZeroColumns
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало removeZeroColumns;
+if (twoDimensionalArray == null?) then (да)
+  :Печать "Массив не заполнен."; <<task>>
+else (нет)
+  :rows = twoDimensionalArray.length; <<task>>
+  :cols = twoDimensionalArray[0].length; <<task>>
+  :removedCols = 0; <<task>>
+  :zeroColumns = new boolean[cols]; <<task>>
+  while (j=0; j < cols?; j++) is (да)
+    :hasZero = false; <<task>>
+    while (i=0; i < rows?; i++) is (да)
+      if (twoDimensionalArray[i][j] == 0?) then (да)
+        :hasZero = true; <<task>>
+      endif
+    endwhile (нет)
+    if (hasZero?) then (да)
+      :zeroColumns[j] = true; <<task>>
+      :removedCols++; <<task>>
+    endif
+  endwhile (нет)
+  :newArray = new int[rows][cols - removedCols]; <<task>>
+  :newColIndex = 0; <<task>>
+  while (j=0; j < cols?; j++) is (да)
+    if (!zeroColumns[j]?) then (да)
+      while (i < rows?; i++) is (да)
+        :newArray[i][newColIndex] = twoDimensionalArray[i][j]; <<task>>
+      endwhile (нет)
+      :newColIndex++; <<task>>
+    endif
+  endwhile (нет)
+  :twoDimensionalArray = newArray; <<task>>
+  :printTDArray(); <<procedure>>
+endif
+:Конец;
+@enduml
+```

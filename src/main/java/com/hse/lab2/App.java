@@ -330,6 +330,11 @@ public class App {
                 }
             }
         }
+        if (cols - removedCols == 0) {
+            System.out.println("Все столбцы содержат нулевые элементы. Массив будет очищен.");
+            twoDimensionalArray = null;
+            return;
+        }
         int[][] newArray = new int[rows][cols - removedCols];
         for (int i = 0, newColIndex = 0; i < cols; i++) {
             if (!zeroColumns[i]) {
