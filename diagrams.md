@@ -217,3 +217,42 @@ endif
 :Конец;
 @enduml
 ```
+
+# printTDArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало printTDArray;
+:Печать "Содержимое двумерного массива:"; <<task>>
+if (twoDimensionalArray == null?) then (да)
+  :Печать "Массив не заполнен."; <<save>>
+else (нет)
+  while (i=0; i < twoDimensionalArray.length?; i++) is (да)
+    while (j=0; j < twoDimensionalArray[i].length?; j++) is (да)
+      :Печать twoDimensionalArray[i][j]; <<save>>
+    endwhile (нет)
+    :Печать перевода строки; <<save>>
+  endwhile (нет)
+endif
+:Конец;
+@enduml
+```
+
+# fillRandomTDArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало fillRandomTDArray;
+:rows = readInt(); <<procedure>>
+:cols = readInt(); <<procedure>>
+:twoDimensionalArray = new int[rows][cols]; <<task>>
+while (i=0; i < rows?; i++) is (да)
+  while (j=0; j < cols?; j++) is (да)
+    :twoDimensionalArray[i][j] = generateRandomValue(); <<procedure>>
+  endwhile (нет)
+endwhile (нет)
+:Конец;
+@enduml
+```
