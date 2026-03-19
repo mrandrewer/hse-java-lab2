@@ -323,6 +323,9 @@ endif
 ```
 
 
+# fillRandomJaggedArray
+
+
 ```plantuml
 @startuml
 skinparam ConditionEndStyle hline
@@ -337,6 +340,38 @@ while (i=0; i < rows?; i++) is (да)
     :jaggedArray[i][j] = generateRandomValue(); <<procedure>>
   endwhile (нет)
 endwhile (нет)
+:Конец;
+@enduml
+```
+
+# addRowToJaggedArray
+
+```plantuml
+@startuml
+skinparam ConditionEndStyle hline
+:Начало addRowToJaggedArray;
+if (array == null?) then (да)
+  :Печать "Массив не заполнен."; <<task>>
+else (нет)
+  :newRowPos = readInt(); <<procedure>>
+  :newRowCols = readInt(); <<procedure>>
+  :newRow = new int[newRowCols]; <<task>>
+  while (j=0; j < newRowCols?; j++) is (да)
+    :newRow[j] = generateRandomValue(); <<procedure>>
+  endwhile (нет)
+  :newArray = new int[array.length + 1][]; <<task>>
+  :destPos = 0; <<task>>
+  while (i=0; i < array.length?; i++) is (да)
+    if (i == newRowPos?) then (да)
+      :newArray[destPos++] = newRow; <<task>>
+    endif
+    :newArray[destPos++] = array[i]; <<task>>
+  endwhile (нет)
+  if (newRowPos == array.length?) then (да)
+    :newArray[destPos] = newRow; <<task>>
+  endif
+  :array = newArray; <<task>>
+endif
 :Конец;
 @enduml
 ```
