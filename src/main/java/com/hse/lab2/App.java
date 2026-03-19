@@ -118,6 +118,17 @@ public class App {
     }
 
     /**
+     * Вычисление среднего значения
+     */
+    private static double calcAverage() {
+        double sum = 0;
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            sum += oneDimensionalArray[i];
+        }
+        return sum / oneDimensionalArray.length;
+    }
+
+    /**
      * Удаление элементов, больших среднего значения
      */
     private static void removeGreaterThanAverage() {
@@ -125,22 +136,24 @@ public class App {
             System.out.println("Массив не заполнен.");
             return;
         }
-        double sum = 0;
-        for (int i = 0; i < oneDimensionalArray.length; i++) {
-            sum += oneDimensionalArray[i];
-        }
-        double average = sum / oneDimensionalArray.length;
+        double average = calcAverage();
         System.out.println("Удаление элементов больше среднего значения: " + average);
-        int[] newArray = new int[oneDimensionalArray.length];
+        // Вычисляем размер нового массива
+        int newLength = 0;
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            if (oneDimensionalArray[i] <= average) {
+                newLength++;
+            }
+        }
+        // Переносим элементы в новый массив
+        int[] newArray = new int[newLength];
         int newIndex = 0;
         for (int i = 0; i < oneDimensionalArray.length; i++) {
             if (oneDimensionalArray[i] <= average) {
                 newArray[newIndex++] = oneDimensionalArray[i];
             }
         }
-        oneDimensionalArray = new int[newIndex];
-        // Переносим элементы из нового массива обратно в исходный массив
-        System.arraycopy(newArray, 0, oneDimensionalArray, 0, newIndex);
+        oneDimensionalArray = newArray;
         printODArray();
     }
 
@@ -156,7 +169,11 @@ public class App {
         }
         int k = readInt(scanner, "Введите количество добавляемых элеметов: ", 1, Integer.MAX_VALUE);
         int[] newArray = new int[oneDimensionalArray.length + k];
-        System.arraycopy(oneDimensionalArray, 0, newArray, 0, oneDimensionalArray.length);
+        // Переносим элементы в новый массив
+        for (int i = 0; i < oneDimensionalArray.length; i++) {
+            newArray[i] = oneDimensionalArray[i];
+        }
+        // Добавляем новые элементы
         for (int i = 0; i < k; i++) {
             newArray[oneDimensionalArray.length + i] = readInt(scanner,
                     "Введите элемент " + (oneDimensionalArray.length + i + 1) + ": ");
@@ -168,19 +185,17 @@ public class App {
     /**
      * Перестановка четных элементов с нечетными
      */
-    private static void swapODArraayElements() {
+    private static void swapODArrayElements() {
         if (oneDimensionalArray == null) {
             System.out.println("Массив не заполнен.");
             return;
         }
         System.out.println("Перестановка четных элементов с нечетными");
-        for (int i = 0; i < oneDimensionalArray.length; i += 2) {
+        for (int i = 0; i < oneDimensionalArray.length - 1; i += 2) {
             int j = i + 1;
-            if (j < oneDimensionalArray.length) {
-                int temp = oneDimensionalArray[i];
-                oneDimensionalArray[i] = oneDimensionalArray[j];
-                oneDimensionalArray[j] = temp;
-            }
+            int temp = oneDimensionalArray[i];
+            oneDimensionalArray[i] = oneDimensionalArray[j];
+            oneDimensionalArray[j] = temp;
         }
         printODArray();
     }
@@ -194,15 +209,16 @@ public class App {
             return;
         }
         System.out.println("Поиск первого отрицательного элемента");
-        for (int i = 0; i < oneDimensionalArray.length; i++) {
-            if (oneDimensionalArray[i] < 0) {
-                System.out.println("Первый отрицательный элемент[" + i + "]: " + oneDimensionalArray[i]);
-                System.out.println("Количество сравнений: " + (i + 1));
-                return;
-            }
+        int i = 0;
+        while (i < oneDimensionalArray.length && oneDimensionalArray[i] >= 0) {
+            i++;
         }
-        System.out.println("Отрицательных элементов не найдено.");
-        System.out.println("Количество сравнений: " + (oneDimensionalArray.length + 1));
+        if (i < oneDimensionalArray.length) {
+            System.out.println("Первый отрицательный элемент[" + i + "]: " + oneDimensionalArray[i]);
+        } else {
+            System.out.println("Отрицательных элементов не найдено.");
+        }
+        System.out.println("Количество сравнений: " + (i + 1));
     }
 
     /**
@@ -475,7 +491,7 @@ public class App {
                         expandODArray(scanner);
                         break;
                     case 6:
-                        swapODArraayElements();
+                        swapODArrayElements();
                         break;
                     case 7:
                         findODArrayNegativeElement();
